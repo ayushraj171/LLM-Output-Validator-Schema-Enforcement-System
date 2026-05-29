@@ -1,11 +1,17 @@
-<img width="1919" height="1063" alt="Screenshot 2026-05-29 103544" src="https://github.com/user-attachments/assets/b2c846af-bce3-486d-87a3-2a4e66fc0cb0" />
-<img width="1919" height="1079" alt="Screenshot 2026-05-29 103534" src="https://github.com/user-attachments/assets/6f6e7296-7c91-4022-b2c2-3017507380ac" />
 # LLM Output Validator
 
 This project is built to solve a simple but real problem:  
 LLM outputs are powerful, but they are often messy, inconsistent, and not directly usable in applications.
 
 LLM Output Validator takes raw responses from language models and converts them into clean, structured, schema-compliant JSON that can be safely used in production systems.
+
+---
+
+## 📸 Screenshots
+
+<img width="1919" height="1063" alt="Screenshot 2026-05-29 103544" src="https://github.com/user-attachments/assets/b2c846af-bce3-486d-87a3-2a4e66fc0cb0" />
+
+<img width="1919" height="1079" alt="Screenshot 2026-05-29 103534" src="https://github.com/user-attachments/assets/6f6e7296-7c91-4022-b2c2-3017507380ac" />
 
 ---
 
@@ -18,7 +24,7 @@ When you send a response from an LLM, it usually looks fine at first glance, but
 - Fields are missing or misaligned  
 - It doesn’t match expected schema rules  
 
-This system sits in between the LLM and your application and makes sure the output is usable.
+This system sits in between the LLM and your application and ensures the output is safe and usable.
 
 ---
 
@@ -46,4 +52,62 @@ The backend is organized in a modular way so each responsibility is separated:
 
 ---
 
-## Project structure
+## 📁 Project Structure
+
+```
+LLM-Output-Validator/
+│
+├── backend/
+│   ├── routes/
+│   ├── services/
+│   │   ├── cleaner.py
+│   │   ├── validator.py
+│   │   ├── retry.py
+│   │   └── llm_handler.py
+│   ├── schemas/
+│   ├── utils/
+│   └── main.py
+│
+├── frontend/
+│
+├── tests/
+│
+├── .env
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## ⚙️ Setup (Important)
+
+If the API is not working on your system, follow these steps carefully:
+
+Set the request method to **POST** and use this URL:
+http://localhost:3000/schema/register
+
+Go to **Body → raw → JSON** and paste this payload:
+
+{
+  "name": "resume",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 3,
+        "pattern": "^[A-Za-z ]+$"
+      },
+      "skills": {
+        "type": "array",
+        "minItems": 1
+      }
+    },
+    "required": ["name", "skills"]
+  }
+}
+
+Click **Send**.
+
+If it still doesn't work, your backend is not running. Start the server and check the terminal:
+Server running on port 3000
