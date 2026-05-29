@@ -109,5 +109,4 @@ Go to **Body → raw → JSON** and paste this payload:
 
 Click **Send**.
 
-If it still doesn't work, your backend is not running. Start the server and check the terminal:
-Server running on port 3000
+
